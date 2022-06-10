@@ -1,0 +1,37 @@
+<script src="/socket.io/socket.io.js"></script>
+
+
+<center>
+    <div style="height:160%;background-image:url('https://img.freepik.com/free-vector/sky-background-video-conferencing_23-2148616500.jpg?w=740');background-size: cover; margin:0;">
+        <br>
+        <h1 style="color:white; font-size:60px;">Welcome To Chat On The Cloud  </h1>
+        <img src="cat.gif" style="width:100px; height:70px;">
+        
+        <form id="message-form">
+    <input style="width:400px; height:25px;" type="text" name="message" id="message-input" placeholder="Type your message">
+    <button style="width:100px; height:25px;" type="submit">Send</button>
+</form>
+
+<br>
+<br>
+<div id="messages-container" style="width:550px; height : 500px; overflow-y:scroll; border : 5px solid aqua;"></div>
+</div> </center>
+
+<script>
+    const socket = window.io()
+    const msgForm = document.querySelector('#message-form')
+    const msgInput = document.querySelector('#message-input')
+    const msgsContainer = document.querySelector('#messages-container')
+
+    msgForm.onsubmit = e => {
+        e.preventDefault();
+        const msg = msgInput.value;
+
+        socket.emit('send-message', { msg })
+        msgInput.value = ''
+    }
+
+    socket.on('send-message', ({ msg }) => {
+        msgsContainer.innerHTML += `<center><p style="background-color: powderblue; height:40px;">${msg}</p></center>`
+    })
+</script>
