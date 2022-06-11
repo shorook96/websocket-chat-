@@ -16,10 +16,7 @@ app.get('/', (req, res) => {
 io.on('connection', socket => {
     socket.on('send-message', data => {
         io.sockets.emit('send-message', data)
-        // CONNECTION TYPES:
-        //    socket;
-        //    io.sockets;
-        //    socket.broadcast;
+        
     });
 });
 
